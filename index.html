@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="./fontawesome-free-5.15.4-web/fontawesome-free-5.15.4-web/css/all.min.css"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <button
+      class="log"
+      onclick="document.getElementById('id01').style.display='block'"
+    >
+      Login
+    </button>
+    <div class="text-center">
+      <a
+        href=""
+        id="dangnhap"
+        class="log"
+        data-toggle="modal"
+        onclick="back();lammoi()"
+        data-target="#modalLoginForm"
+      ></a>
+    </div>
+    <div id="id01" class="modal" id="modalLoginForm">
+      <span
+        onclick="document.getElementById('id01').style.display='none'"
+        class="close"
+        title="Close Modal"
+        >&times;</span
+      >
+      <!-- <div class="main animate"> -->
+      <form action="" class="form animate" method="POST" id="login">
+        <div class="form-big">
+          <h3 class="heading">Member Login</h3>
+          <div class="form-group">
+            <!-- <i class="fas fa-user"></i> -->
+            <input
+              id="user"
+              name="fullname"
+              type="text"
+              class="form-control"
+              placeholder="Username"
+            />
+            <span id="loiuser"></span>
+          </div>
+
+          <div class="form-group">
+            <input
+              id="pass"
+              name="password"
+              type="text"
+              class="form-control"
+              placeholder="Password"
+            />
+            <span id="loipass"></span>
+          </div>
+          <div>
+            <button class="form-submit" id="loadding" onclick="loaddinga()">
+              Login
+            </button>
+            <span id="tcong"></span>
+          </div>
+          <!-- <button class="form-submit active">Login</button> -->
+        </div>
+
+        <div class="container" style="background-color: #f1f1f1">
+          <button
+            type="button"
+            onclick="document.getElementById('id01').style.display='none'"
+            class="cancelbtn"
+          >
+            Cancel
+          </button>
+          <h4 class="forgot-button">
+            <a class="forgot-btn" href="">Forgot Password?</a>
+          </h4>
+        </div>
+      </form>
+      <!-- </div> -->
+      <!-- forgot password -->
+
+      <!-- <form action="" class="form animate" method="POST" id="save">
+        <div class="form-big">
+          <h3 class="heading">Change Password</h3>
+          <div class="form-group">
+            <input
+              id="oldpass"
+              name="oldpass"
+              type="text"
+              class="form-control"
+              placeholder="Old Password"
+            />
+            <span id="loioldpass"></span>
+          </div>
+
+          <div class="form-group">
+            <input
+              id="newpass"
+              name="newpassword"
+              type="text"
+              class="form-control"
+              placeholder="New Password"
+            />
+            <span id="loinewpass"></span>
+          </div>
+
+          <button class="form-submit" id="loadding" onclick="validatenew()">
+            Save
+          </button>
+          <span id="tcong"></span>
+        </div>
+
+        <div class="container" style="background-color: #f1f1f1">
+          <button type="button" onclick="back()" class="cancelbtn">Back</button>
+        </div>
+      </form> -->
+    </div>
+
+    <!-- <script src="./validator.js"></script> -->
+    <script>
+      var modal = document.getElementById("id01");
+
+      // tat cua so
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+      function pass() {
+        document.getElementById("dangnhap").innerHTML = "Đăng nhập hệ thống";
+      }
+
+      var currentuser = "admin";
+      var currentpass = "admin";
+      function validate() {
+        const user = document.getElementById("user").value;
+        const pass = document.getElementById("pass").value;
+        if (user.trim().length == 0) {
+          document.getElementById("loiuser").innerHTML =
+            "Vui long nhap Username";
+        } else {
+          document.getElementById("loiuser").innerHTML = "";
+        }
+        if (pass.trim().length == 0) {
+          document.getElementById("loipass").innerHTML =
+            "Vui long nhap Password";
+        } else {
+          document.getElementById("loipass").innerHTML = "";
+        }
+        if (user != currentuser && user != null) {
+          document.getElementById("loiuser").innerHTML = "Sai Username";
+        } else {
+          document.getElementById("loiuser").innerHTML = "";
+        }
+        if (pass != currentpass && pass != null) {
+          document.getElementById("loipass").innerHTML = "Sai Password";
+        } else {
+          document.getElementById("loipass").innerHTML = "";
+        }
+        if (true) {
+          document.getElementById("dangnhap").innerText =
+            "Đăng nhập thành công!!";
+          document.getElementById("dangnhap").style.background = "antiquewhite";
+          document.getElementById("close").click();
+        }
+      }
+
+      function lammoi() {
+        document.getElementById("fullname").value = "";
+        document.getElementById("password").value = "";
+        document.getElementById("oldpass").value = "";
+        document.getElementById("newpass").value = "";
+        document.getElementById("loipass").innerHTML = "";
+        document.getElementById("loiuser").innerHTML = "";
+        document.getElementById("loioldpass").innerHTML = "";
+        document.getElementById("loinewpass").innerHTML = "";
+        document.getElementById("tcong").innerHTML = "";
+      }
+
+      function loaddinga() {
+        document.getElementById("loadding").innerHTML = "Loading...";
+        setTimeout(function () {
+          validate();
+          document.getElementById("loadding").innerHTML = "Login";
+        }, 1000);
+      }
+
+      function forgot() {
+        lammoi();
+        document.getElementById("login").style.display = "none";
+        document.getElementById("save").style.display = "block";
+        document.getElementById("tenform").style.innerHTML = "Member Login";
+      }
+
+      function validatenew() {
+        const oldpass = document.getElementById("oldpass").value;
+        const newpass = document.getElementById("newpass").value;
+        if (oldpass.trim().length == 0) {
+          document.getElementById("loioldpass").innerHTML =
+            "Xin mời nhập mật khẩu cũ";
+          return false;
+        } else {
+          document.getElementById("loioldpass").innerHTML = "";
+        }
+        if (oldpass != currentpass) {
+          document.getElementById("loioldpass").innerHTML = "Sai mật khẩu cũ";
+          return false;
+        } else {
+          document.getElementById("loioldpass").innerHTML = " ";
+        }
+        if (newpass.trim().length == 0) {
+          document.getElementById("loinewpass").innerHTML =
+            "Xin mời nhập mật khẩu mới";
+          return false;
+        } else {
+          document.getElementById("loinewpass").innerHTML = "";
+        }
+        if (newpass == oldpass) {
+          document.getElementById("loinewpass").innerHTML =
+            "Mật khẩu mới phải khác mật khẩu cũ";
+        } else {
+          document.getElementById("loinewpass").innerHTML = "";
+        }
+        if (true) {
+          currentpass = newpass;
+          document.getElementById("tcong").innerHTML =
+            "Bạn đã đổi mật khẩu thành công";
+          document.getElementById("login").style.display = "block";
+          document.getElementById("save").style.display = "none";
+        }
+      }
+    </script>
+  </body>
+</html>
